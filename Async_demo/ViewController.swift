@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                                     completed in
                                     //Once the fade is complete:
                                     
-                                    //Re-enable teh download button
+                                    //Re-enable the download button
                                     self.downloadButton.isEnabled = true
                                     
                                     //Get rid of the image
@@ -63,8 +63,9 @@ class ViewController: UIViewController {
     //Ask the download manager to download an image and return it as Data
     DownloadManager.downloadManager.downloadFileAtURL(
       url,
+      
       //This is the code to execute when the data is available
-      //(or the network request failed.
+      //(or the network request fails)
       completion: {
         [weak self] //Create a capture group for self to avoid a retain cycle.
         data, error in
