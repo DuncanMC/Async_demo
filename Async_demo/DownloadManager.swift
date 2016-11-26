@@ -38,7 +38,7 @@ class DownloadManager: NSObject {
       data, response, error in
       
       //Perform the completion handler on the main thread
-      DispatchQueue.main.async {
+      DispatchQueue.main.async() {
         //Call the copmletion handler that was passed to us
         completion(data, error)
       }

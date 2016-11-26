@@ -9,7 +9,17 @@
 import Foundation
 import UIKit
 
-extension UIView {
+protocol LayerProperties {
+  var borderWidth: CGFloat {get set}
+  var borderColor: UIColor {get set}
+  var cornerRadius: CGFloat {get set}
+}
+
+/**
+ This extension to UIView exposes some properties of its backing layer and, with an `@IBInspectable` tag, allows those properties to be set from Interface Builder.
+ */
+
+extension UIView: LayerProperties {
   
   @IBInspectable
   

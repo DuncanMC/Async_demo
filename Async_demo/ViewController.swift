@@ -10,10 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
   
+  //MARK: - IBOulets
   @IBOutlet weak var downloadButton: UIButton!
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+  //MARK: - properties
+
+  ///This property is set to true when a download is in progress. It uses a `didSet` method to start an activity indicator view during downloading and disable the download button.
+  
   var downloadingInProgress: Bool = false {
     didSet {
       if downloadingInProgress {
@@ -24,16 +29,19 @@ class ViewController: UIViewController {
       downloadButton.isEnabled = !downloadingInProgress
     }
   }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-  }
+ 
+  //MARK: - overridden instance methods
+
+  //MARK: - custom instance methods
 
   func rotateAndRemoveImage() {
     activityIndicator.stopAnimating()
 
-    UIView.animate(withDuration: 1.0, delay: 0.5, options: [], animations: {
+    UIView.animate(withDuration: 1.0,
+                   delay: 1.0,
+                   options: [],
+                   animations: {
+                    
       //Rotate the image a half-turn
       self.imageView.transform = self.imageView.transform.rotated(by: CGFloat(Float.pi))
     },
@@ -63,6 +71,8 @@ class ViewController: UIViewController {
     })
   }
   
+  //MARK: - IBActions
+
   @IBAction func handledDownloadButton(_ sender: UIButton) {
     
     downloadingInProgress = true
