@@ -84,21 +84,25 @@ class ViewController: UIViewController {
         guard let strongSelf = self else {
           return
         }
+        
         if let error = error {
           print("download failed. message = \(error.localizedDescription)")
           strongSelf.downloadingInProgress = false
           return
         }
+        
         guard let data = data else {
           print("Data is nil!")
           strongSelf.downloadingInProgress = false
           return
         }
+        
         guard let image = UIImage(data: data) else {
           print("Unable to load image from data")
           strongSelf.downloadingInProgress = false
           return
         }
+        
         //Install the newly downloaded image into the image view.
         strongSelf.imageView.image = image
         
