@@ -43,16 +43,22 @@
                                     <action selector="handledDownloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bCf-O3-5q0"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aZp-nq-VpZ">
+                                <rect key="frame" x="178" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="pE7-ht-750" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="JlK-Et-V3h"/>
+                            <constraint firstItem="aZp-nq-VpZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="K9I-iI-lM0"/>
                             <constraint firstItem="QFJ-dC-3QA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M7w-RU-lCT"/>
                             <constraint firstItem="pE7-ht-750" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eoW-c9-1y9"/>
+                            <constraint firstItem="aZp-nq-VpZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xuc-9Y-gzz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QFJ-dC-3QA" secondAttribute="bottom" constant="20" id="zLS-dh-Rqp"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="aZp-nq-VpZ" id="y9h-Go-BtR"/>
                         <outlet property="downloadButton" destination="QFJ-dC-3QA" id="u2r-er-Bpt"/>
                         <outlet property="imageView" destination="pE7-ht-750" id="pVc-zx-unr"/>
                     </connections>

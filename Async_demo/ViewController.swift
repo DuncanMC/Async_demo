@@ -12,13 +12,27 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var downloadButton: UIButton!
   @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+  var downloadingInProgress: Bool = false {
+    didSet {
+      if downloadingInProgress {
+        activityIndicator.startAnimating()
+      } else {
+        activityIndicator.stopAnimating()
+      }
+      downloadButton.isEnabled = !downloadingInProgress
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
   }
 
   func rotateAndRemoveImage() {
+    activityIndicator.stopAnimating()
+
     UIView.animate(withDuration: 1.0, delay: 0.5, options: [], animations: {
       //Rotate the image a half-turn
       self.imageView.transform = self.imageView.transform.rotated(by: CGFloat(Float.pi))
@@ -35,8 +49,7 @@ class ViewController: UIViewController {
                                     completed in
                                     //Once the fade is complete:
                                     
-                                    //Re-enable the download button
-                                    self.downloadButton.isEnabled = true
+                                    self.downloadingInProgress = false
                                     
                                     //Get rid of the image
                                     self.imageView.image = nil
@@ -52,14 +65,11 @@ class ViewController: UIViewController {
   
   @IBAction func handledDownloadButton(_ sender: UIButton) {
     
-    
+    downloadingInProgress = true
     guard let url = URL(string: "https://s3.amazonaws.com/snork/WareTo+logo.png") else {
       print("Unable to create URL")
       return
     }
-    //Disable the download button while the download is running
-    downloadButton.isEnabled = false
-
     //Ask the download manager to download an image and return it as Data
     DownloadManager.downloadManager.downloadFileAtURL(
       url,
@@ -76,17 +86,17 @@ class ViewController: UIViewController {
         }
         if let error = error {
           print("download failed. message = \(error.localizedDescription)")
-          strongSelf.downloadButton.isEnabled = true
+          strongSelf.downloadingInProgress = false
           return
         }
         guard let data = data else {
           print("Data is nil!")
-          strongSelf.downloadButton.isEnabled = true
+          strongSelf.downloadingInProgress = false
           return
         }
         guard let image = UIImage(data: data) else {
           print("Unable to load image from data")
-          strongSelf.downloadButton.isEnabled = true
+          strongSelf.downloadingInProgress = false
           return
         }
         //Install the newly downloaded image into the image view.

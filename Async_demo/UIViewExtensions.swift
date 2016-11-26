@@ -12,6 +12,7 @@ import UIKit
 extension UIView {
   
   @IBInspectable
+  
   var borderWidth: CGFloat {
     get {
       return self.layer.borderWidth
