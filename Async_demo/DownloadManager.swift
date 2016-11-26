@@ -28,23 +28,27 @@ class DownloadManager: NSObject {
    - Parameter completion: A completion handler to execute once the download is finished
    */
   
-  func downloadFileAtURL(_ url: URL, completion: @escaping DataClosure) {
-    
-    //We create a URLRequest that does not allow caching so you can see the download take place
-    let request = URLRequest(url: url,
-                             cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                             timeoutInterval: 30.0)
-    let dataTask = URLSession.shared.dataTask(with: request) {
-      data, response, error in
+    func downloadFileAtURL(_ url: URL, completion: @escaping DataClosure) {
       
-      //Perform the completion handler on the main thread
-      DispatchQueue.main.async() {
-        //Call the copmletion handler that was passed to us
-        completion(data, error)
+      //We create a URLRequest that does not allow caching so you can see the download take place
+      let request = URLRequest(url: url,
+                               cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+                               timeoutInterval: 30.0)
+      let dataTask = URLSession.shared.dataTask(with: request) {
+        //------------------------------------------
+        //This is the completion handler, which runs LATER,
+        //after downloadFileAtURL has returned.
+        data, response, error in
+        
+        //Perform the completion handler on the main thread
+        DispatchQueue.main.async() {
+          //Call the copmletion handler that was passed to us
+          completion(data, error)
+        }
+        //------------------------------------------
       }
+      dataTask.resume()
+      
+      //When we get here the data task will NOT have completed yet!
     }
-    dataTask.resume()
-    
-    //When we get here the data task will NOT have completed yet!
   }
-}
